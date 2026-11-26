@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Pigeon Pitch, One Line — make.fun entry.
 
-Writes the champion one-line elevator pitch to /output/entry.txt.
+Writes the champion one-line elevator pitch (candidate B below) to
+/output/entry.txt as UTF-8, byte-exact and with no trailing newline.
+The pitch itself lives in the ENTRY constant; this module's only job
+is to emit it unchanged.
 
 Duel (proxy judge: openai/gpt-oss-120b via Groq, verbatim judge brief from the
 competition kit's RULES.txt, each pair judged in both orders, score per call
@@ -49,9 +52,12 @@ ENTRY = (
 )
 
 
+OUTPUT_PATH = os.path.join("/output", "entry.txt")
+
+
 def main() -> None:
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
+    os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
+    with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         f.write(ENTRY)
 
 
